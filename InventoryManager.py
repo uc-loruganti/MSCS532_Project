@@ -16,6 +16,22 @@ class InventoryManager:
         # 3. Search Trie 
         self.search_trie = TrieNode()
 
+    # This function populates the inventory with sample data for testing
+    def populate_sample_data(self):
+        sample_products = [
+            Product("SKU001", "Apple iPhone 13", 799.99, 50, "Electronics"),
+            Product("SKU002", "Samsung Galaxy S21", 699.99, 30, "Electronics"),
+            Product("SKU003", "Sony WH-1000XM4 Headphones", 349.99, 20, "Audio"),
+            Product("SKU004", "Dell XPS 13 Laptop", 999.99, 15, "Computers"),
+            Product("SKU005", "Apple MacBook Pro", 1299.99, 10, "Computers"),
+            Product("SKU006", "Bose QuietComfort Earbuds", 279.99, 25, "Audio"),
+            Product("SKU007", "Google Pixel 6", 599.99, 40, "Electronics"),
+            Product("SKU008", "HP Spectre x360", 1099.99, 12, "Computers"),
+            Product("SKU009", "JBL Flip 5 Speaker", 119.99, 35, "Audio"),
+            Product("SKU010", "OnePlus 9 Pro", 729.99, 28, "Electronics"),
+        ]
+        for product in sample_products:
+            self.add_product(product)
 
     # Function to add a new product to the inventory
     # This function updates all data structures accordingly
@@ -25,7 +41,7 @@ class InventoryManager:
     def add_product(self, product: Product): 
         # Add product to primary hash table if not already present
         if product.sku in self.products:
-            print(f"Product with SKU {product.sku} already exists.")
+            print(f"Product with SKU {product.sku} already exists. Please update instead of adding.")
             return
         self.products[product.sku] = product
 

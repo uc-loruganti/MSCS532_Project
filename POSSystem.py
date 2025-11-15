@@ -1,7 +1,7 @@
 from InventoryManager import InventoryManager
 
 # Point of Sale (POS) System
-class POS:
+class POSSystem:
     # Initialize POS with an inventory manager instance injected
     def __init__(self, inventory_manager : InventoryManager):
         self.inventory_manager = inventory_manager
