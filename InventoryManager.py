@@ -1,5 +1,4 @@
-from MSCS532_Project import Product
-
+from Product import Product
 
 class InventoryManager: 
     def __init__(self): 
