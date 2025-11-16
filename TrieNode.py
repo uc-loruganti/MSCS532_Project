@@ -1,3 +1,8 @@
+# TrieNode implementation for product name prefix search
+# Time complexity : 
+#   - insert: O(m) where m is the length of the word
+#   - search: O(m) where m is the length of the prefix
+#   - delete: O(m) where m is the length of the word
 class TrieNode:
     def __init__(self):
         self.children: dict[str, TrieNode] = {}

@@ -23,7 +23,7 @@ class POSSystem:
         
         # Update inventory
         new_quantity = product.quantity - quantity
-        self.inventory_manager.update_quantity(product, new_quantity)
+        self.inventory_manager.update_quantity(product.sku, new_quantity)
         
         total_price = product.price * quantity
         print(f"Sale processed for {quantity} units of {product.name}. Total price: ${total_price:.2f}")
@@ -42,7 +42,7 @@ class POSSystem:
         
         # Update inventory
         new_quantity = product.quantity + quantity
-        self.inventory_manager.update_quantity(product, new_quantity)
+        self.inventory_manager.update_quantity(product.sku, new_quantity)
         
         total_refund = product.price * quantity
         print(f"Return processed for {quantity} units of {product.name}. Total refund: ${total_refund:.2f}")

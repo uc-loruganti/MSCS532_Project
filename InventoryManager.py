@@ -53,6 +53,11 @@ class InventoryManager:
         # Update search trie
         self.search_trie.insert(product.name, product.sku)
 
+    # Function to remove a product from the inventory
+    # This function updates all data structures accordingly
+    # 1 : Remove from primary hash table
+    # 2 : Remove from category index
+    # 3 : Remove from search trie
     def remove_product(self, product: Product): 
         # self.products.remove(product)
 
@@ -71,9 +76,12 @@ class InventoryManager:
 
 
     # Update quantity of a product and other data structures if needed
-    def update_quantity(self, product: Product, quantity: int): 
-        if(product.sku not in self.products):
-            print(f"Product with SKU {product.sku} does not exist.")
+    # Time complexity : O(1)
+    # Space complexity : O(1)
+    def update_quantity(self, sku: str, quantity: int): 
+        product = self.get_product_by_sku(sku)
+        if(product is None):
+            print(f"Product with SKU {sku} does not exist.")
             return
         
         if(quantity < 0):
@@ -87,20 +95,32 @@ class InventoryManager:
     # Retrieve a product by its SKU
     # Return None if not found
     def get_product_by_sku(self, sku : str): 
+        # O(1) lookup in primary hash table
         return self.products.get(sku, None)
 
     # Retrieve products by category
+    # Time complexity : O(1) + O(n)
+    # where n is number of products in that category
+    # Space complexity : O(n) for the returned list
     def get_products_by_category(self, category: str):
+        # O(1) lookup in category index
         if category in self.categories:
             skus = self.categories[category]
+            # O(n) lookup in primary hash table
             return [self.products[sku] for sku in skus]
         return []
 
     # Retrieve products by name prefix using the search trie
-    def get_products_by_name_prefix(self, prefix: str):
+    # Time complexity : O(m) + O(n)
+    # where m is length of the prefix and n is number of matching products
+    # Space complexity : O(n) for the returned list
+    def get_products_by_name_prefix(self, prefix: str) -> list[Product]: 
+        # O(n) lookup in search trie
         skus = self.search_trie.search(prefix)
         return [self.products[sku] for sku in skus]
 
     # Get all categories in the inventory
+    # Time complexity : O(1)
+    # Space complexity : O(n) for the returned list
     def get_categories(self):
         return list(self.categories.keys())
