@@ -71,3 +71,55 @@ SKUs matching prefix 'Apple': ['SKU005', 'SKU001']
 7. Get all products in a category : Electronics
 Products in category 'Electronics': ['Samsung Galaxy S21', 'Google Pixel 6', 'OnePlus 9 Pro', 'Apple iPhone 13']
 ```
+
+## Stress testing
+
+This repository includes stress-testing and metric-collection scripts under
+the `tests/` folder. The examples below are written for Windows PowerShell
+and assume you run them from the project root `MSCS532_Project`.
+
+Command:
+
+```powershell
+ python .\tests\stress_test_inventory.py 
+```
+
+After script  execution is completed, we will see the output something as following: 
+
+```
+=== Mode store_nodes=True N=20000 ===
+Build time: 2.960s, current_mem=187.32MB peak=187.32MB
+Prefix search (cold) time: 0.0002s, found=50
+Prefix search (hot) time: 0.000062s
+
+=== Mode store_nodes=False N=20000 ===
+Build time: 2.908s, current_mem=185.35MB peak=185.35MB
+Prefix search (cold) time: 0.0367s, found=50
+Prefix search (hot) time: 0.000158s
+
+Stress test completed. Adjust N to scale higher.
+
+```
+
+Collect metrics and plot
+------------------------
+
+- Run a sweep to collect metrics (writes `tests/metrics.csv`):
+
+```powershell
+python .\tests\collect_metrics.py
+```
+
+- Generate plots (writes PNG files to `docs/`):
+
+```powershell
+python .\tests\plot_metrics.py
+```
+
+Outputs
+-------
+
+- `tests/metrics.csv` — CSV with measured build times, peak memory, and
+  cold/hot lookup timings for each run.
+- `docs/fig_build_time.png`, `docs/fig_memory.png`, `docs/fig_cold_lookup.png`
+  — plots generated from the collected CSV and embedded in `report.md`.
