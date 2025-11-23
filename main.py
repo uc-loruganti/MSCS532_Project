@@ -56,11 +56,6 @@ if __name__ == "__main__":
     print("-------------------------------------")
 
 
-
-
-
-
-
     print("************** INVENTORY MANAGEMENT SYSTEM OPERATIONS **************")
     """
         Invertory Management System operations demo
@@ -93,9 +88,21 @@ if __name__ == "__main__":
     # update quantity of a product
     inventory.update_quantity("SKU001", 75)
     print("Updated quantity of product with SKU001 to 75")
+
+    print("-------------------------------------")
+    print("4. Update product name")
+    # update quantity of a product
+    product_by_sku_original = inventory.get_product_by_sku("SKU006")
+    original_name = product_by_sku_original.name if product_by_sku_original else "Not found"
+    inventory.update_product_name("SKU006", "New Product Name")
+    print("Updated product name of product with SKU006 to 'New Product Name' from '", original_name, "'")    
+    product_by_sku = inventory.get_product_by_sku("SKU006")
+    print("Retrieved updated product:", product_by_sku.name if product_by_sku else "Not found")
+
+
     print("-------------------------------------")
 
-    print("4. Retrieve a product by SKU 'SKU002'")
+    print("5. Retrieve a product by SKU 'SKU002'")
     # retrieve a product by SKU
     product_by_sku = inventory.get_product_by_sku("SKU002")
     if product_by_sku:
@@ -104,13 +111,13 @@ if __name__ == "__main__":
         print("Product not found.")
 
     print("-------------------------------------")
-    print("5. Get all categories in the inventory")
+    print("6. Get all categories in the inventory")
     # get all categories in the inventory
     categories = inventory.get_categories()
     print("Categories in inventory:", categories)
 
     print("-------------------------------------")
-    print("6. Search products by name prefix")
+    print("7. Search products by name prefix")
     """
     sample_products = [
             Product("SKU001", "Apple iPhone 13", 799.99, 50, "Electronics"),
@@ -132,7 +139,7 @@ if __name__ == "__main__":
     print(f"SKUs matching prefix '{prefix}':", [p.sku for p in matching_products])
 
     print("-------------------------------------")
-    print("7. Get all products in a category : Electronics")
+    print("8. Get all products in a category : Electronics")
     # Get all products in a category
     category = "Electronics"
     products_in_category = inventory.get_products_by_category(category)
