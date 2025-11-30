@@ -8,7 +8,10 @@ class _PrefixCacheNode:
         self.children: dict[str, _PrefixCacheNode] = {}
         self.cached_skus: list[str] | None = None
 
-
+# Trie structure for caching prefix query results (case-insensitive keys)
+# Each node may store a cached list of SKUs for the prefix leading to that node. So the key
+# "App" would be stored by traversing 'A' -> 'p' -> 'p' nodes, and the last node would have
+# cached_skus set to the list of SKUs matching that prefix.
 class PrefixCacheTrie:
     def __init__(self):
         self.root = _PrefixCacheNode()
@@ -102,7 +105,7 @@ class InventoryManager:
         # Update search trie (store lowercase names to make searches case-insensitive)
         name_norm = product.name.lower()
         self.search_trie.insert(name_norm, product.sku)
-        # Invalidate prefix cache entries affected by this product's name
+        # Invalidate prefix cache entries affected by this product's name because of new addition . This ensures correctness.
         self._prefix_cache.invalidate_prefixes_of_name(name_norm)
         # Invalidate category cache for this product's category
         self._category_cache.pop(product.category, None)
